@@ -60,3 +60,7 @@ body {
 .tarjeta p {
   margin: 0.2rem 0;
 }
+
+.error {
+  color: crimson;
+}
