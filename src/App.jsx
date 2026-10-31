@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { buscarSeries } from "./api.js";
-import { prepararSeries, ordenarPorNota } from "./datos.js";
+import { prepararSeries, ordenarPorNota, contarGeneros } from "./datos.js";
 import Buscador from "./components/Buscador.jsx";
 import EstadoBusqueda from "./components/EstadoBusqueda.jsx";
+import ResumenGeneros from "./components/ResumenGeneros.jsx";
 import ListaSeries from "./components/ListaSeries.jsx";
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
   const [error, setError] = useState("");
 
   const ordenadas = ordenarPorNota(series);
+  const generos = contarGeneros(series);
 
   async function buscar(texto) {
     setConsulta(texto);
@@ -37,7 +39,10 @@ export default function App() {
       </header>
       <main>
         {series.length > 0 ? (
-          <ListaSeries series={ordenadas} />
+          <>
+            <ResumenGeneros total={series.length} generos={generos} />
+            <ListaSeries series={ordenadas} />
+          </>
         ) : (
           <EstadoBusqueda
             consulta={consulta}
