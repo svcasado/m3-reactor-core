@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { buscarSeries } from "./api.js";
 import { prepararSeries, ordenarPorNota, contarGeneros } from "./datos.js";
 import Buscador from "./components/Buscador.jsx";
@@ -14,6 +14,12 @@ export default function App() {
 
   const ordenadas = ordenarPorNota(series);
   const generos = contarGeneros(series);
+
+  useEffect(() => {
+    document.title = consulta
+      ? `${consulta} · Buscador de series`
+      : "Buscador de series";
+  }, [consulta]);
 
   async function buscar(texto) {
     setConsulta(texto);
